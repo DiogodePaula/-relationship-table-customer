@@ -14,7 +14,7 @@ class Sale extends Model {
           allowNull: false,
           type: Sequelize.STRING,
         },
-        quantity_of_itens: {
+        quantity_of_items: {
           allowNull: false,
           type: Sequelize.INTEGER,
         },
@@ -22,7 +22,17 @@ class Sale extends Model {
           type: Sequelize.UUID,
           allowNull: false,
           references: {
-            model: 'clients',
+            model: 'client',
+            key: 'uid',
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+        },
+        product_uid: {
+          type: Sequelize.UUID,
+          allowNull: false,
+          references: {
+            model: 'product',
             key: 'uid',
           },
           onUpdate: 'CASCADE',
@@ -37,13 +47,14 @@ class Sale extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Product, {
-      as: 'products',
-      foreignKey: 'brand-uid',
-    });
     this.belongsTo(models.Client, {
-      as: 'clients',
+      as: 'client',
       foreignKey: 'client_uid',
+    });
+
+    this.belongsTo(models.Product, {
+      as: 'product',
+      foreignKey: 'product_uid',
     });
   }
 }

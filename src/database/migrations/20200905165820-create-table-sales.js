@@ -10,7 +10,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      quantity_of_itens: {
+      quantity_of_items: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
@@ -24,14 +24,18 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      created_at: {
-        type: Sequelize.DATE,
+      product_uid: {
+        type: Sequelize.UUID,
         allowNull: false,
+        references: {
+          model: 'products',
+          key: 'uid',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
-      updated_at: {
-        type: Sequelize.DATE,
-        allowNull: false,
-      },
+      created_at: { type: Sequelize.DATE, allowNull: false },
+      updated_at: { type: Sequelize.DATE, allowNull: false },
     });
   },
 

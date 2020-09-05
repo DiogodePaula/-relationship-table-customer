@@ -22,12 +22,12 @@ class Brand extends Model {
     return this;
   }
 
-  // static associate(models) {
-  //   this.hasMany(models.Product, {
-  //     foreignKey: 'brand_uid',
-  //     as: 'products',
-  //   });
-  // }
+  static associate(models) {
+    this.hasMany(models.Product, {
+      foreignKey: 'brand_uid',
+      as: 'products',
+    });
+  }
 }
 
 export default Brand;

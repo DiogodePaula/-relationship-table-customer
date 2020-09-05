@@ -4,10 +4,10 @@ import databaseConfig from '../config/database';
 
 import Brand from '../app/models/Brand';
 import Product from '../app/models/Product';
-import Sale from '../app/models/Sale';
 import Client from '../app/models/Client';
+import Sale from '../app/models/Sale';
 
-const models = [Brand, Product, Sale, Client];
+const models = [Brand, Product, Client, Sale];
 
 class DataBase {
   constructor() {

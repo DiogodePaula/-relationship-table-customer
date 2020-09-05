@@ -25,17 +25,6 @@ class Client extends Model {
     );
     return this;
   }
-
-  // static associate(models) {
-  //   this.belongsTo(models.Brand, {
-  //     as: 'company',
-  //     foreignKey: 'brand_uid',
-  //   });
-  //   this.hasMany(models.EmployeeRole, {
-  //     as: 'roles',
-  //     foreignKey: 'employee_uid',
-  //   });
-  // }
 }
 
 export default Client;

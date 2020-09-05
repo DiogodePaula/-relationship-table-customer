@@ -22,7 +22,7 @@ class Product extends Model {
           type: Sequelize.UUID,
           allowNull: false,
           references: {
-            model: 'brands',
+            model: 'brand',
             key: 'uid',
           },
           onUpdate: 'CASCADE',
@@ -36,17 +36,17 @@ class Product extends Model {
     return this;
   }
 
-  // static associate(models) {
-  //   this.belongsTo(models.Brand, {
-  //     as: 'brands',
-  //     foreignKey: 'brand_uid',
-  //   });
+  static associate(models) {
+    this.belongsTo(models.Brand, {
+      as: 'brand',
+      foreignKey: 'brand_uid',
+    });
 
-  //   this.hasMany(models.Sale, {
-  //     as: 'sales',
-  //     foreignKey: 'brand_uid',
-  //   });
-  // }
+    this.hasMany(models.Sale, {
+      as: 'sales',
+      foreignKey: 'uid',
+    });
+  }
 }
 
 export default Product;

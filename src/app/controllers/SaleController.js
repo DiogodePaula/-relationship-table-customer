@@ -1,13 +1,27 @@
 import Sale from '../models/Sale';
+import Client from '../models/Client';
+import Product from '../models/Product';
 
 class SaleController {
   async index(req, res) {
     try {
-      const sales = await Sale.findAll({
-        attributes: ['uid', 'name', 'address'],
+      const sale = await Sale.findAll({
+        attributes: ['uid', 'total_price', 'quantity_of_items'],
+        include: [
+          {
+            model: Client,
+            as: 'client',
+            attributes: ['uid', 'name', 'cpf'],
+          },
+          {
+            model: Product,
+            as: 'product',
+            attributes: ['uid', 'name', 'quantity'],
+          },
+        ],
       });
 
-      return res.json({ sales });
+      return res.json({ sale });
     } catch (error) {
       return res.json({
         error,
@@ -18,23 +32,23 @@ class SaleController {
   async show(req, res) {
     try {
       const { uid } = req.params;
-      const sales = await Sale.findByPk(uid, {
-        attributes: ['uid', 'name', 'branch'],
-        //   include: [
-        //     {
-        //       model: Employee,
-        //       as: 'employees',
-        //       attributes: ['uid', 'name', 'age', 'cpf'],
-        //     },
-        //     {
-        //       model: Role,
-        //       as: 'roles',
-        //       attributes: ['uid', 'name'],
-        //     },
-        //   ],
+      const sale = await Sale.findByPk(uid, {
+        attributes: ['uid', 'total_price', 'quantity_of_items'],
+        include: [
+          {
+            model: Client,
+            as: 'client',
+            attributes: ['uid', 'name', 'cpf'],
+          },
+          {
+            model: Product,
+            as: 'product',
+            attributes: ['uid', 'name', 'quantity'],
+          },
+        ],
       });
 
-      return res.json({ sales });
+      return res.json({ sale });
     } catch (error) {
       return res.json({ error });
     }
@@ -42,15 +56,11 @@ class SaleController {
 
   async store(req, res) {
     try {
-      const sales = await Sale.create(req.body);
+      const sale = await Sale.create(req.body);
 
-      return res.json({ sales });
+      return res.json({ sale });
     } catch (error) {
-      const response = {
-        message: 'dados incorretos',
-        error,
-      };
-      return res.json({ response });
+      return res.json({ error });
     }
   }
 
@@ -60,7 +70,7 @@ class SaleController {
       const updated = await Sale.update(req.body, { where: { uid } });
 
       if (!updated) {
-        throw Error('Sales não encontrado');
+        throw Error('Product não encontrado');
       }
       return res.json('DATA_UPDATE');
     } catch (error) {
