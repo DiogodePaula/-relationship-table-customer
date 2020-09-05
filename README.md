@@ -1,2 +1,2 @@
-# -relationship-table-customer
-Treinando relacionamento de tabelas.  
+# table-relationship-
+Relacionamento de tabelas.
